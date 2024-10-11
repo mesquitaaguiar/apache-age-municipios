@@ -24,11 +24,11 @@ Abra o terminal do promp do Dos e navegue no diretório que descompactou o docke
 
 ## Execute os comandos abaixo para criar o módulo da Apache Age no PostgreSQL e posteriormente carregando para utilizá-lo:
 
-```CREATE EXTENSION age;
+CREATE EXTENSION age;
 
 LOAD 'age';
 
-SET search_path = ag_catalog, "$user", public;```
+SET search_path = ag_catalog, "$user", public;
 
 
 ## Criamos o graph_name e posteriormente inserimos os registros da entidade City:
@@ -58,7 +58,7 @@ $$) as (p agtype);
 
 ## Criando relacionamento entre os nós:
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Jussiape' AND B.name = 'Rio de Contas'
@@ -131,17 +131,17 @@ MATCH (A:City), (B:City)
 WHERE A.name = 'Caitité' AND B.name = 'Guanambi'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:40}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
 
 ## Para criar a "rota" com início em Livramento e ponto final em Vitória da Conquista:
 
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 	MATCH p = (a)-[*]->(b)
 	WHERE a.name = 'Livramento' AND b.name = 'Vitória da Conquista'
 	RETURN relationships(p)
-$$) as (edges agtype)```
+$$) as (edges agtype);
 
 ![alt text](Screenshot_8.png)
