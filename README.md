@@ -145,5 +145,5 @@ FROM cypher('graph_city_ba_sudoeste', $$
 	RETURN relationships(p)
 $$) as (edges agtype)```
 
-
+## 
 ![alt text](Screenshot_8.png)
