@@ -24,18 +24,18 @@ Abra o terminal do promp do Dos e navegue no diretório que descompactou o docke
 
 ## Execute os comandos abaixo para criar o módulo da Apache Age no PostgreSQL e posteriormente carregando para utilizá-lo:
 
-```CREATE EXTENSION age;```
+```CREATE EXTENSION age;
 
-```LOAD 'age';```
+LOAD 'age';
 
-```SET search_path = ag_catalog, "$user", public;```
+SET search_path = ag_catalog, "$user", public;```
 
 
 ## Criamos o graph_name e posteriormente inserimos os registros da entidade City:
 
-```SELECT create_graph('graph_city_ba_sudoeste');```
+SELECT create_graph('graph_city_ba_sudoeste');
 
-```SELECT * from cypher('graph_city_ba_sudoeste', $$
+SELECT * from cypher('graph_city_ba_sudoeste', $$
 CREATE (A:City {name: "Jussiape", states: "BA"}),
     (B:City {name: "Rio de Contas", states: "BA"}),
     (C:City {name: "Livramento", states: "BA"}),
@@ -47,13 +47,12 @@ CREATE (A:City {name: "Jussiape", states: "BA"}),
     (I:City {name: "Macaúbas", states: "BA"}),
     (J:City {name: "Bom Jesus da Lapa", states: "BA"}),
     (K:City {name: "Vitória da Conquista", states: "BA"})
-$$) as (result agtype);```
+$$) as (result agtype);
 
-Com isso temos o seguinte resultado:
-```SELECT * FROM cypher('graph_city_ba_sudoeste', $$
+SELECT * FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (p:City)
 RETURN p
-$$) as (p agtype);```
+$$) as (p agtype);
 
 ![alt text](Screenshot_7.png)
 
@@ -65,68 +64,68 @@ MATCH (A:City), (B:City)
 WHERE A.name = 'Jussiape' AND B.name = 'Rio de Contas'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:35}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Rio de Contas' AND B.name = 'Livramento'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:15}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Livramento' AND B.name = 'Dom Basílio'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:20}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Dom Basílio' AND B.name = 'Brumado'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:50}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Livramento' AND B.name = 'Paramirim'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:70}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Paramirim' AND B.name = 'Macaúbas'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:75}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Brumado' AND B.name = 'Caitité'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:65}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Brumado' AND B.name = 'Vitória da Conquista'
     CREATE (A)-[e:RELTYPE {name: A.name + '<->' + B.name, distance:138}]->(B)
 RETURN e.name
-$$) as (e agtype);```
+$$) as (e agtype);
 
 
-```SELECT *
+SELECT *
 FROM cypher('graph_city_ba_sudoeste', $$
 MATCH (A:City), (B:City)
 WHERE A.name = 'Caitité' AND B.name = 'Guanambi'
@@ -135,7 +134,7 @@ RETURN e.name
 $$) as (e agtype);```
 
 
-## Para criar a "rota" com início em Livramento e ponto final em Vitória da Conquista, veja o resultado:
+## Para criar a "rota" com início em Livramento e ponto final em Vitória da Conquista:
 
 
 ```SELECT *
@@ -145,5 +144,4 @@ FROM cypher('graph_city_ba_sudoeste', $$
 	RETURN relationships(p)
 $$) as (edges agtype)```
 
-## 
 ![alt text](Screenshot_8.png)
